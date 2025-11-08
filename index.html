@@ -25,12 +25,9 @@
     /* ===== FUNDO EM GRADE ===== */
     .background {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 2px;
       z-index: 0;
@@ -38,28 +35,42 @@
     }
 
     .background div {
-      position: relative;
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      animation: moveUp 30s linear infinite;
-      transform: translateY(0);
+      opacity: 0;
+      animation: fadeInBg 2s ease forwards, moveBg 40s linear infinite;
     }
 
-    /* Movimento vertical lento (loop) */
-    @keyframes moveUp {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-10%); }
-      100% { transform: translateY(0); }
+    /* fade das imagens ao carregar */
+    @keyframes fadeInBg {
+      to { opacity: 1; }
     }
+
+    /* movimento suave e infinito */
+    @keyframes moveBg {
+      0%   { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(-10%) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* Delay aleatório entre blocos (efeito orgânico) */
+    .background div:nth-child(1) { animation-delay: 0s, 0s; }
+    .background div:nth-child(2) { animation-delay: 0s, 4s; }
+    .background div:nth-child(3) { animation-delay: 0s, 8s; }
+    .background div:nth-child(4) { animation-delay: 0s, 12s; }
+    .background div:nth-child(5) { animation-delay: 0s, 16s; }
+    .background div:nth-child(6) { animation-delay: 0s, 20s; }
+    .background div:nth-child(7) { animation-delay: 0s, 24s; }
+    .background div:nth-child(8) { animation-delay: 0s, 28s; }
 
     /* ===== CAMADA ESCURA ===== */
     .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(2px);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(3px);
       z-index: 1;
     }
 
@@ -82,7 +93,7 @@
       letter-spacing: 2px;
       margin-bottom: 1rem;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-      animation: fadeIn 2s ease forwards;
+      animation: fadeInText 2s ease forwards;
     }
 
     p {
@@ -90,12 +101,40 @@
       max-width: 600px;
       opacity: 0.9;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-      animation: fadeIn 3s ease forwards;
+      animation: fadeInText 3s ease forwards;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInText {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RODAPÉ COM REDES ===== */
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social a {
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .social a:hover {
+      opacity: 1;
+      transform: scale(1.2);
     }
 
     /* ===== RESPONSIVIDADE ===== */
@@ -105,14 +144,14 @@
 
       .background {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Fundo com 10 imagens -->
+  <!-- Fundo com 8 imagens -->
   <div class="background">
     <div style="background-image: url('1.jpg')"></div>
     <div style="background-image: url('2.png')"></div>
@@ -130,7 +169,13 @@
     <h1>Em breve</h1>
     <p>Nos siga nas redes sociais, logo teremos novidades.</p>
   </div>
+
+  <footer>
+    <div class="social">
+      <a href="https://youtube.com/@BibleAnimeTV" target="_blank" title="YouTube">📺</a>
+      <a href="https://instagram.com/BibleAnimeTV" target="_blank" title="Instagram">📸</a>
+      <a href="https://tiktok.com/@BibleAnimeTV" target="_blank" title="TikTok">🎬</a>
+    </div>
+  </footer>
 </body>
 </html>
-
-
