@@ -6,7 +6,6 @@
   <title>Em Breve | Bible Anime TV</title>
 
   <style>
-    /* ===== RESET ===== */
     * {
       margin: 0;
       padding: 0;
@@ -18,52 +17,39 @@
       height: 100vh;
       overflow: hidden;
       color: #fff;
-      position: relative;
       background: #000;
+      position: relative;
     }
 
-    /* ===== FUNDO EM GRADE ===== */
-    .background {
+    /* ===== FUNDO SCROLL INFINITO ===== */
+    .background-wrapper {
       position: absolute;
       inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .background {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 2px;
-      z-index: 0;
-      overflow: hidden;
+      grid-template-rows: repeat(4, 1fr); /* 8 imagens duplicadas = 4x4 */
+      width: 100%;
+      height: 200%; /* altura dupla para o loop */
+      animation: scrollUp 60s linear infinite;
+    }
+
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
     }
 
     .background div {
-      width: 100%;
-      height: 100%;
       background-size: cover;
       background-position: center;
-      opacity: 0;
-      animation: fadeInBg 2s ease forwards, moveBg 40s linear infinite;
+      width: 100%;
+      height: 100%;
+      filter: brightness(0.9);
     }
-
-    /* fade das imagens ao carregar */
-    @keyframes fadeInBg {
-      to { opacity: 1; }
-    }
-
-    /* movimento suave e infinito */
-    @keyframes moveBg {
-      0%   { transform: translateY(0) scale(1); }
-      50%  { transform: translateY(-10%) scale(1.05); }
-      100% { transform: translateY(0) scale(1); }
-    }
-
-    /* Delay aleatório entre blocos (efeito orgânico) */
-    .background div:nth-child(1) { animation-delay: 0s, 0s; }
-    .background div:nth-child(2) { animation-delay: 0s, 4s; }
-    .background div:nth-child(3) { animation-delay: 0s, 8s; }
-    .background div:nth-child(4) { animation-delay: 0s, 12s; }
-    .background div:nth-child(5) { animation-delay: 0s, 16s; }
-    .background div:nth-child(6) { animation-delay: 0s, 20s; }
-    .background div:nth-child(7) { animation-delay: 0s, 24s; }
-    .background div:nth-child(8) { animation-delay: 0s, 28s; }
 
     /* ===== CAMADA ESCURA ===== */
     .overlay {
@@ -93,7 +79,7 @@
       letter-spacing: 2px;
       margin-bottom: 1rem;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-      animation: fadeInText 2s ease forwards;
+      animation: fadeIn 2s ease forwards;
     }
 
     p {
@@ -101,15 +87,14 @@
       max-width: 600px;
       opacity: 0.9;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-      animation: fadeInText 3s ease forwards;
+      animation: fadeIn 3s ease forwards;
     }
 
-    @keyframes fadeInText {
+    @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== RODAPÉ COM REDES ===== */
     footer {
       position: absolute;
       bottom: 20px;
@@ -137,30 +122,40 @@
       transform: scale(1.2);
     }
 
-    /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
       h1 { font-size: 2.5rem; }
       p  { font-size: 1rem; }
-
       .background {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(8, 1fr);
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Fundo com 8 imagens -->
-  <div class="background">
-    <div style="background-image: url('1.jpg')"></div>
-    <div style="background-image: url('2.png')"></div>
-    <div style="background-image: url('3.jpg')"></div>
-    <div style="background-image: url('4.jpg')"></div>
-    <div style="background-image: url('5.png')"></div>
-    <div style="background-image: url('6.jpg')"></div>
-    <div style="background-image: url('7.jpg')"></div>
-    <div style="background-image: url('8.jpg')"></div>
+  <!-- Fundo com rolagem infinita -->
+  <div class="background-wrapper">
+    <div class="background">
+      <!-- 8 imagens originais -->
+      <div style="background-image: url('1.jpg')"></div>
+      <div style="background-image: url('2.png')"></div>
+      <div style="background-image: url('3.jpg')"></div>
+      <div style="background-image: url('4.jpg')"></div>
+      <div style="background-image: url('5.png')"></div>
+      <div style="background-image: url('6.jpg')"></div>
+      <div style="background-image: url('7.jpg')"></div>
+      <div style="background-image: url('8.jpg')"></div>
+      <!-- 8 imagens duplicadas para rolagem contínua -->
+      <div style="background-image: url('1.jpg')"></div>
+      <div style="background-image: url('2.png')"></div>
+      <div style="background-image: url('3.jpg')"></div>
+      <div style="background-image: url('4.jpg')"></div>
+      <div style="background-image: url('5.png')"></div>
+      <div style="background-image: url('6.jpg')"></div>
+      <div style="background-image: url('7.jpg')"></div>
+      <div style="background-image: url('8.jpg')"></div>
+    </div>
   </div>
 
   <div class="overlay"></div>
